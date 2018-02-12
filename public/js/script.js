@@ -22,12 +22,11 @@ const fetchItems = async () => {
   }
 }
 
-const renderItemData = () => {
-
+const renderItemData = (event) => {
+  $(event.target).next().toggleClass('hidden')
 }
 
 const toggleGarage = () => {
-  console.log('toggle garage')
   $('#garage-door').toggleClass('hidden')
 }
 
@@ -37,6 +36,7 @@ const openGarage = async () => {
 }
 
 $('#btn-garage').on('click', openGarage)
+$(document).on('click', renderItemData)
 
 
 $(document).ready(() => {

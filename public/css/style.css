@@ -1,3 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .hidden {
   transition: 1s;
   display: none;
@@ -6,4 +19,21 @@
 .garage-door-img {
   width: 100%;
   transition: 1s;
+}
+
+#btn-garage {
+  width: 100px;
+  height: 25px;
+}
+
+h1 {
+  margin-bottom: 50px;
+}
+
+h3 {
+  margin: 10px;
+}
+
+h3:hover {
+  cursor: pointer;
 }
