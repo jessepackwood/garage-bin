@@ -13,7 +13,21 @@
   <div id='garage-door'>
     <img class='garage-door-img' src='./assets/garage-door.jpg' alt='garage-door-picture'>
   </div>
-  <div id='garage-item-container'>
+  <div id='container-and-form'>
+    <div id='garage-item-container'>
+    </div>
+    <div id='add-item' class='hidden'>
+      <h2>Add an item</h2>
+      <input type='text' placeholder='Item Name' id='name-input'>
+      <input type='text' placeholder='Reason it lingers' id='reason-input'>
+      <span>Cleanliness</span>
+      <select class='dropdown'>
+        <option>Sparkling</option>
+        <option>Dusty</option>
+        <option>Rancid</option>
+      </select>
+      <button class='btn-add'>Submit</button>
+    </div>
   </div>
   <button id='btn-garage'>Open/Close</button>
 

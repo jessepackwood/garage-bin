@@ -37,3 +37,15 @@ h3 {
 h3:hover {
   cursor: pointer;
 }
+
+#container-and-form {
+  display: flex;
+}
+
+input {
+  display: block;
+}
+
+.btn-add {
+  display: block;
+}
