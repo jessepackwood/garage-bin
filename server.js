@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.locals.title = 'GarageBin';
 
 app.get('/', (request, response) => {
-  response.send('Hello World!');
+  response.send('Garage Bin');
 });
 
 app.get('/api/v1/garage_items', (request, response) => {

@@ -31,6 +31,7 @@ describe('Client Routes', () => {
       throw err;
     });
   });
+
 });
 
 describe('API Routes', () => {
@@ -41,51 +42,53 @@ describe('API Routes', () => {
     });
   });
 
-  describe('GET api/v1/garage', () => {
-    it('should return the garage', () => {
-      return chai.request(server)
-        .get('/api/v1/garage')
-        .then(response => {
-          response.should.have.status(200);
-          response.should.be.json;
-          response.body.should.be.a('object');
-          response.res.should.be.a('object');
-        })
-        .catch(err => {
-          throw err;
-        });
-      });
-    });
-
   describe('GET api/v1/garage_items', () => {
-    it('should return all garage items', () => {
+    it('should return all the garage items', () => {
       return chai.request(server)
-        .get('/api/v1/garage_items')
-        .then(response => {
-          response.should.have.status(200);
-          response.should.be.json;
-          response.body.should.be.a('object');
-          response.res.should.be.a('object');
-        })
-        .catch(err => {
-          throw err;
-        });
+      .get('/api/v1/garage_items')
+      .then(response => {
+        response.should.have.status(200);
+        response.should.be.json;
+        response.body.should.be.a('array');
+      })
+      .catch(err => {
+        throw err;
       });
     });
+  });
 
-  describe('GET api/v1/garage_items/:id', () => {
+
+  describe('POST api/v1/garage_items', () => {
     it('should return one item', () => {
       return chai.request(server)
-        .get('/api/v1/garage_items/1')
+        .post('/api/v1/garage_items')
+        .send({
+          name: 'fishing pole',
+          reason: 'not fishing',
+          cleanliness: 'sparkling'
+        })
         .then(response => {
-          response.should.have.status(200);
-          response.should.be.json;
+          response.should.have.status(201);
           response.body.should.be.a('object');
-          response.res.should.be.a('object');
         })
         .catch(err => {
           throw err;
         });
       });
-    });
-}
+
+    it('should return a 422 when a required param is missing', () => {
+      return chai.request(server)
+      .post('/api/v1/garage_items')
+      .send({
+        name: 'harley'
+      })
+      .then(response => {
+        response.should.have.status(422);
+      })
+      .catch(error => {
+        throw error;
+      })
+    })
+  });
+  
+})
