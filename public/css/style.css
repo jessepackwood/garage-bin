@@ -49,3 +49,11 @@ input {
 .btn-add {
   display: block;
 }
+
+#garage-item-container {
+  margin-right: 50px;
+}
+
+ul {
+  list-style-type: none;
+}
