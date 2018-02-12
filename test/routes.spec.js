@@ -59,7 +59,7 @@ describe('API Routes', () => {
 
 
   describe('POST api/v1/garage_items', () => {
-    it('should return one item', () => {
+    it('should post one item', () => {
       return chai.request(server)
         .post('/api/v1/garage_items')
         .send({
@@ -90,5 +90,36 @@ describe('API Routes', () => {
       })
     })
   });
-  
-})
+
+  describe('PATCH api/v1/garage_items/:id', (request, response) => {
+    it('should edit one item cleanliness', () => {
+      return chai.request(server)
+        .patch('/api/v1/garage_items/2')
+        .send({
+          cleanliness: 'dusty'
+        })
+        .then(response => {
+          response.should.have.status(200);
+        })
+        .catch(error => {
+          throw error;
+        })
+    });
+
+    it('should return a 404 if the item is not found', () => {
+      return chai.request(server)
+        .patch('/api/v1/garage_items/300')
+        .send({
+          cleanliness: 'dusty'
+        })
+        .then(response => {
+          response.should.have.status(404);
+          response.body.should.be.a('object');
+        })
+        .catch(error => {
+          throw error
+        })
+    });
+  });
+
+});
