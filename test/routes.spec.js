@@ -59,7 +59,7 @@ describe('API Routes', () => {
 
 
   describe('POST api/v1/garage_items', () => {
-    it('should return one item', () => {
+    it('should post one item', () => {
       return chai.request(server)
         .post('/api/v1/garage_items')
         .send({
@@ -121,5 +121,5 @@ describe('API Routes', () => {
         })
     });
   });
-  
+
 });

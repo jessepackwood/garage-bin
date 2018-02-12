@@ -17,10 +17,16 @@ const fetchItems = async () => {
 }
 
 const renderItemData = () => {
-  
+
+}
+
+const toggleGarage = () => {
+  $('#garage-door').toggleClass('hidden')
 }
 
 
+
+$('#btn-garage').on('click', toggleGarage)
 
 $(document).ready(() => {
   fetchItems()

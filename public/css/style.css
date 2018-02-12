@@ -1,3 +1,7 @@
 .hidden {
   display: none;
 }
+
+.garage-door-img {
+  width: 100%;
+}
