@@ -1,7 +1,9 @@
 .hidden {
+  transition: 1s;
   display: none;
 }
 
 .garage-door-img {
   width: 100%;
+  transition: 1s;
 }

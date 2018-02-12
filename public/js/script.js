@@ -1,6 +1,9 @@
 const fetchItems = async () => {
   const unresolvedItems = await fetch('/api/v1/garage_items')
   const fetchedItems = await unresolvedItems.json()
+  $('#garage-item-container').empty()
+
+  if ($('#garage-door').hasClass('hidden')) {
   fetchedItems.forEach( item => {
     $('#garage-item-container').append(
       `<div>
@@ -13,7 +16,10 @@ const fetchItems = async () => {
         </div>
       </div>`
       )
-  })
+  }) 
+  } else {
+  $('#garage-item-container').empty()
+  }
 }
 
 const renderItemData = () => {
@@ -21,13 +27,17 @@ const renderItemData = () => {
 }
 
 const toggleGarage = () => {
+  console.log('toggle garage')
   $('#garage-door').toggleClass('hidden')
 }
 
+const openGarage = async () => {
+  toggleGarage();
+  await fetchItems();
+}
 
+$('#btn-garage').on('click', openGarage)
 
-$('#btn-garage').on('click', toggleGarage)
 
 $(document).ready(() => {
-  fetchItems()
 })
