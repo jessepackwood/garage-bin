@@ -43,6 +43,24 @@ app.post('/api/v1/garage_items', (request, response) => {
     .catch(error => response.status(404).json({ error }));
 });
 
+app.patch('/api/v1/garage_items/:id', (request, response) => {
+  const { id } = request.params;
+  const { cleanliness } = request.body;
+
+  database('garage_items').where({ id }).update({ cleanliness })
+    .then((item) => {
+      if (!item) {
+      response.status(404).json({ error: 'Not found' });
+      }
+      else {
+      response.status(200).json(item);
+      }
+    })
+    .catch((error) => {
+      response.status(422).json({ error });
+    });
+});
+
 app.listen(app.get('port'), () => {
   /* eslint-disable no-console */
   console.log(`${app.locals.title} is running on ${app.get('port')}. env: ${environment}`);
