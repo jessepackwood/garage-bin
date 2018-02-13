@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /*background-color: #28536B;*/
+  font-family: 'Open-Sans';
 }
 
 body {
@@ -16,18 +18,46 @@ body {
   display: none;
 }
 
+#garage-door {
+  position: absolute;
+  width: 100vw;
+  /*height: 100vh;*/
+  top: 50px;
+  bottom: 0;
+  overflow: hidden;
+  transition: all 3s;
+}
+
+#garage-door .slide {
+  bottom: 100vh;
+  height: 45px;
+}
+
 .garage-door-img {
   width: 100%;
-  transition: 1s;
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  overflow: hidden;
+  transition: all 3s;
+}
+
+.garage-door-img .slide{
+  top: 100vh;
+  height: 100px;
 }
 
 #btn-garage {
   width: 100px;
   height: 25px;
+  z-index: 2;
+  position: absolute;
 }
 
 h1 {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  /*position: absolute;*/
 }
 
 h3 {
@@ -40,14 +70,25 @@ h3:hover {
 
 #container-and-form {
   display: flex;
+  margin-top: 100px;
+  background-color: #28536B;
+  width: 100vw;
+  justify-content: center;
+  color: #fff;
 }
 
 input {
   display: block;
+  width: 100%;
+  height: 25px;
+  margin: 5px;
 }
 
 .btn-add {
   display: block;
+  margin: 10px auto;
+  height: 25px;
+  width: 50%;
 }
 
 #garage-item-container {
@@ -56,4 +97,25 @@ input {
 
 ul {
   list-style-type: none;
+}
+
+.add-item-title {
+  margin: 20px;
+}
+
+.sort-a, .sort-z {
+  width: 40%;
+  height: 25px;
+}
+
+.lift {
+  z-index: 10;
+}
+
+button {
+  outline: none;
+}
+
+input {
+  outline: none;
 }
