@@ -116,6 +116,8 @@ const addItem = async () => {
   $('.garage-count-total').text()
   } catch (error) {
   }
+  $('#name-input').val('');
+  $('#reason-input').val('');
 }
 
 const appendItem = () => {
@@ -128,7 +130,11 @@ const appendItem = () => {
         <div class='hidden item-details'>
           <ul>
             <li>Reason: ${reason}</li>
-            <li>Cleanliness: ${cleanliness}</li>
+            <li>Cleanliness: <select>
+                <option>${cleanliness}</option>
+                
+              </select>
+            </li>
           </ul>
         </div>
       </div>`
