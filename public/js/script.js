@@ -6,9 +6,32 @@ const fetchItems = async () => {
   $('.garage-count-total').text(fetchedItems.length)
 
   if ($('#garage-door').hasClass('hidden')) {
-      $('#garage-item-container').prepend(`<h2>Current Items</h2><button class='sort-a'>Sort A-Z</button><button class='sort-z'>Sort Z-A</button>`)
-      fetchedItems.forEach( item => appendFetchItem(item))
-  
+      $('#garage-item-container').prepend(
+        `<h2>Current Items</h2>
+        <button class='sort-a'>Sort A-Z</button>
+        <button class='sort-z'>Sort Z-A</button>`
+        )
+      let sparkleCount = 0;
+      let dustyCount = 0;
+      let rancidCount = 0;
+
+      fetchedItems.forEach( item => {
+        appendFetchItem(item);
+
+        if (item.cleanliness === 'sparkling') {
+          sparkleCount += 1
+        }
+        else if (item.cleanliness === 'dusty') {
+          dustyCount += 1
+        }
+        else if (item.cleanliness === 'rancid') {
+          rancidCount += 1
+        }
+        $('.sparkling-count-total').text(sparkleCount)
+        $('.dusty-count-total').text(dustyCount)
+        $('.rancid-count-total').text(rancidCount)
+
+    })
       $('#add-item').toggleClass('hidden')
   } else {
   $('#garage-item-container').empty()
@@ -66,6 +89,9 @@ const renderItemData = (event) => {
 
 const toggleGarage = () => {
   $('#garage-door').toggleClass('hidden')
+  // $('#garage-door').toggleClass('slide')
+  // $('.garage-door-img').toggleClass('slide')
+  // $('container-and-form').toggleClass('lift')
 }
 
 const openGarage = async () => {
