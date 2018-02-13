@@ -141,7 +141,12 @@ const appendSort = (item) => {
         <div id='item + ${item.id}' class='hidden item-details'>
           <ul>
             <li>Reason: ${item.reason}</li>
-            <li>Cleanliness: ${item.cleanliness}</li>
+            <li>Cleanliness: 
+            <select id='select-${item.id}'>
+                <option>${item.cleanliness}</option>
+                <option>${dropdownOptions(item.cleanliness)[0]}</option>
+                <option>${dropdownOptions(item.cleanliness)[1]}</option>
+              </select></li>
           </ul>
         </div>
       </div>`
