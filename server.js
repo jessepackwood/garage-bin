@@ -33,7 +33,7 @@ app.post('/api/v1/garage_items', (request, response) => {
   for (const requiredParams of ['name', 'reason', 'cleanliness']) {
     if (!garageItem[requiredParams]) {
       return response.status(422).json({
-        error: `You are missing ${requiredParams}`
+        error: `You are missing property ${requiredParams}`
       });
     }
   }

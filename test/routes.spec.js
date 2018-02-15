@@ -26,6 +26,7 @@ describe('Client Routes', () => {
     .get('/sad')
     .then(response => {
       response.should.have.status(404);
+      response.body.should.be.a('object');
     })
     .catch(err => {
       throw err;
@@ -50,6 +51,13 @@ describe('API Routes', () => {
         response.should.have.status(200);
         response.should.be.json;
         response.body.should.be.a('array');
+        response.body[0].should.be.a('object');
+        response.body[0].id.should.equal(1);
+        response.body[0].name.should.equal('motorcycle');
+        response.body[1].id.should.equal(2);
+        response.body[1].name.should.equal('dirtbike');
+        response.body[2].id.should.equal(3);
+        response.body.length.should.equal(3);
       })
       .catch(err => {
         throw err;
@@ -70,6 +78,8 @@ describe('API Routes', () => {
         .then(response => {
           response.should.have.status(201);
           response.body.should.be.a('object');
+          response.body.should.have.property('id');
+          response.body.id.should.equal(4);
         })
         .catch(err => {
           throw err;
@@ -84,6 +94,8 @@ describe('API Routes', () => {
       })
       .then(response => {
         response.should.have.status(422);
+        response.body.should.have.property('error');
+        response.body.error.should.equal('You are missing property reason');
       })
       .catch(error => {
         throw error;
@@ -100,6 +112,7 @@ describe('API Routes', () => {
         })
         .then(response => {
           response.should.have.status(200);
+          response.body.should.equal(1);
         })
         .catch(error => {
           throw error;
@@ -115,6 +128,8 @@ describe('API Routes', () => {
         .then(response => {
           response.should.have.status(404);
           response.body.should.be.a('object');
+          response.body.should.have.property('error');
+          response.body.error.should.equal('Not found');
         })
         .catch(error => {
           throw error
