@@ -1,46 +1,34 @@
 const fetchItems = async () => {
-  const unresolvedItems = await fetch('/api/v1/garage_items')
-  const fetchedItems = await unresolvedItems.json()
-  $('#garage-item-container').empty()
+  const unresolvedItems = await fetch('/api/v1/garage_items');
+  const fetchedItems = await unresolvedItems.json();
+  $('.current-items').empty();
+  $('.garage-count-total').text(fetchedItems.length);
 
-  $('.garage-count-total').text(fetchedItems.length)
+  let sparkleCount = 0;
+  let dustyCount = 0;
+  let rancidCount = 0;
 
-  if ($('#garage-door').hasClass('hidden')) {
-      $('#garage-item-container').prepend(
-        `<h2>Current Items</h2>
-        <button class='sort-a'>Sort A-Z</button>
-        <button class='sort-z'>Sort Z-A</button>`
-        )
-      let sparkleCount = 0;
-      let dustyCount = 0;
-      let rancidCount = 0;
+  fetchedItems.forEach( item => {
+    appendFetchItem(item);
 
-      fetchedItems.forEach( item => {
-        appendFetchItem(item);
+    if (item.cleanliness === 'sparkling') {
+      sparkleCount += 1
+    }
+    else if (item.cleanliness === 'dusty') {
+      dustyCount += 1
+    }
+    else if (item.cleanliness === 'rancid') {
+      rancidCount += 1
+    }
 
-        if (item.cleanliness === 'sparkling') {
-          sparkleCount += 1
-        }
-        else if (item.cleanliness === 'dusty') {
-          dustyCount += 1
-        }
-        else if (item.cleanliness === 'rancid') {
-          rancidCount += 1
-        }
-        $('.sparkling-count-total').text(sparkleCount)
-        $('.dusty-count-total').text(dustyCount)
-        $('.rancid-count-total').text(rancidCount)
-
-    })
-      $('#add-item').toggleClass('hidden')
-  } else {
-  $('#garage-item-container').empty()
-  $('#add-item').toggleClass('hidden')
-  }
+    $('.sparkling-count-total').text(sparkleCount);
+    $('.dusty-count-total').text(dustyCount);
+    $('.rancid-count-total').text(rancidCount);
+  })
 }
 
 const appendFetchItem = (item) => {
-  $('#garage-item-container').append(
+  $('.current-items').append(
       `<div>
         <h3 class='appended-item-name'>${item.name}</h3>
         <div id='item-${item.id}' class='hidden item-details'>
@@ -58,8 +46,9 @@ const appendFetchItem = (item) => {
       </div>`
     )
   $(`#select-${item.id}`).on('change', () => {
-    const updatedOption = $(`#select-${item.id}`).val()
+    const updatedOption = $(`#select-${item.id}`).val();
     patchCleanliness(item.id, updatedOption);
+    fetchItems();
   });
 }
 
@@ -73,25 +62,22 @@ const patchCleanliness = async (id, updatedOption) => {
     }
   })
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
 const dropdownOptions = (appendedOption) => {
-  const options = ['sparkling', 'dusty', 'rancid']
-  const filteredOptions = options.filter( option => option !== appendedOption)
-  return filteredOptions
+  const options = ['sparkling', 'dusty', 'rancid'];
+  const filteredOptions = options.filter( option => option !== appendedOption);
+  return filteredOptions;
 }
 
 const renderItemData = (event) => {
-  $(event.target).next().toggleClass('hidden')
+  $(event.target).next().toggleClass('hidden');
 }
 
 const toggleGarage = () => {
-  $('#garage-door').toggleClass('hidden')
-  // $('#garage-door').toggleClass('slide')
-  // $('.garage-door-img').toggleClass('slide')
-  // $('container-and-form').toggleClass('lift')
+  $('#garage-door').toggleClass('hidden');
 }
 
 const openGarage = async () => {
@@ -100,9 +86,9 @@ const openGarage = async () => {
 }
 
 const addItem = async () => {
-  const name = $('#name-input').val()
-  const reason = $('#reason-input').val()
-  const cleanliness = $('.dropdown').find(':selected').val()
+  const name = $('#name-input').val();
+  const reason = $('#reason-input').val();
+  const cleanliness = $('.dropdown').find(':selected').val();
   try {
   const itemPost = await fetch('/api/v1/garage_items', {
     method: 'POST',
@@ -111,38 +97,16 @@ const addItem = async () => {
       'Content-type': 'application/json'
     }
   })
-  const newItem = await itemPost.json()
-  appendItem()
-  $('.garage-count-total').text()
+  const newItem = await itemPost.json();
   } catch (error) {
   }
   $('#name-input').val('');
   $('#reason-input').val('');
-}
-
-const appendItem = () => {
-  const name = $('#name-input').val()
-  const reason = $('#reason-input').val()
-  const cleanliness = $('.dropdown').find(':selected').val()
-  $('#garage-item-container').append(
-    `<div>
-        <h3 class='appended-item-name'>${name}</h3>
-        <div class='hidden item-details'>
-          <ul>
-            <li>Reason: ${reason}</li>
-            <li>Cleanliness: <select>
-                <option>${cleanliness}</option>
-                
-              </select>
-            </li>
-          </ul>
-        </div>
-      </div>`
-    )
+  fetchItems();
 }
 
 const appendSort = (item) => {
-  $('#garage-item-container').append(
+  $('.current-items').append(
     `<h3 class='appended-item-name'>${item.name}</h3>
         <div id='item + ${item.id}' class='hidden item-details'>
           <ul>
@@ -160,13 +124,7 @@ const appendSort = (item) => {
 }
 
 const sortItems = () => {
-  $('#garage-item-container').empty();
-  $('#garage-item-container').append(`
-    <h2>Current Items</h2>
-    <div class='sort-buttons'>
-        <button class='sort-a'>Sort A-Z</button>
-        <button class='sort-z'>Sort Z-A</button>
-      </div>`)
+  $('.current-items').empty();
   fetch('/api/v1/garage_items')
     .then(response => response.json())
     .then((items) => {
@@ -188,13 +146,7 @@ const sortItems = () => {
 };
 
 const sortItemsZ = () => {
-  $('#garage-item-container').empty();
-  $('#garage-item-container').append(`
-    <h2>Current Items</h2>
-    <div class='sort-buttons'>
-        <button class='sort-a'>Sort A-Z</button>
-        <button class='sort-z'>Sort Z-A</button>
-      </div>`)
+  $('.current-items').empty();
   fetch('/api/v1/garage_items')
     .then(response => response.json())
     .then((items) => {
@@ -216,12 +168,8 @@ const sortItemsZ = () => {
 }
 
 
-$('.btn-add').on('click', addItem)
-$('#btn-garage').on('click', openGarage)
-$(document).on('click', '.sort-a', sortItems)
-$(document).on('click', '.sort-z', sortItemsZ)
-$(document).on('click', '.appended-item-name', renderItemData)
-
-
-$(document).ready(() => {
-})
+$('.btn-add').on('click', addItem);
+$('#btn-garage').on('click', openGarage);
+$(document).on('click', '.sort-a', sortItems);
+$(document).on('click', '.sort-z', sortItemsZ);
+$(document).on('click', '.appended-item-name', renderItemData);
