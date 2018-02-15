@@ -9,15 +9,21 @@
     <h1>
       Garage Bin
     </h1>
-      <button id='btn-garage'>Open/Close</button>
+    <button id='btn-garage'>Open/Close</button>
   </header>
   <div id='garage-door'>
-    <img class='garage-door-img' src='./assets/garage-door.jpg' alt='garage-door-picture'>
   </div>
   <div id='container-and-form'>
     <div id='garage-item-container'>
+      <div class='sort-button-container'>
+        <h2>Current Items</h2>
+          <button class='sort-a'>Sort A-Z</button>
+          <button class='sort-z'>Sort Z-A</button>
+      </div>
+      <div class='current-items'>
+      </div>
     </div>
-    <div id='add-item' class='hidden'>
+    <div id='add-item'>
       <h2>Current Counts</h2>
       <div>Total items in garage: <span class='garage-count-total'></span></div>
       <div>Sparkling items: <span class='sparkling-count-total'></span></div>
